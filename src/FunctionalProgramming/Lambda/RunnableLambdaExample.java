@@ -12,6 +12,7 @@ public class RunnableLambdaExample {
 
         Runnable LambdaRunnable1 = () -> {
             System.out.println("Inside Run Method! using Lambda Method 1");
+
         };
         new Thread(LambdaRunnable1).start();
 

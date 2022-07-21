@@ -8,7 +8,9 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toList;
 
 public class StreamsOfGenerateIterateExample {
+
     public static void main(String[] args) {
+
         Stream<String> stringStream = Stream.of("adam","dan","jenny","dave");
         stringStream.forEach(System.out::println);
 

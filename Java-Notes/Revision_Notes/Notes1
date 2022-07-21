@@ -1,0 +1,130 @@
+Content:
+
+Classes and Objects
+Variables and Methods
+Type Casting
+Scope of variables
+Static variables
+Wrapper Classes
+Stack and Heap memory
+______________________________________________
+
+Classes and Objects:
+
+A class:
+
+public class Person {
+    String gender;
+    int age;
+
+    void eat(){
+        SOUT("I eat this way");
+    }
+
+    void dance(){
+        SOUT("I dance this way!");
+    }
+}
+______________________________________________
+
+An Object:
+
+Person tejas = new Person();
+tejas.dance();
+tejas.age = 25;
+tejas.gender = "Male";
+______________________________________________
+
+^^^ main method is the starting point of the program flow.
+All the program does not have to have a main class in their code.
+So, only one main method is enough for an application to run.
+
+______________________________________________
+______________________________________________
+
+Variables and Methods:
+
+Types of Variables:
+Primitive and Reference variables.
+
+Variables that are defined inside a class and outside a method, it is called instance variables.
+
+Ex.
+
+Class Employee(){
+    int age;
+
+    Employee Tejas = new Employee();
+    void empAge(){
+        SOUT("Employee Age is: " + )
+    }    
+}
+
+by default, values will be assigned to instance variables.
+0 for int
+NULL for String
+false for boolean
+
+So, we can use instance variables even without initiating it.
+______________________________________________
+
+Local variables.
+
+They must be declared before using them.
+They do not have default values.
+They must be initiated before using them.
+They are normal variables like "i" in FOR_LOOP.
+
+______________________________________________
+
+Type casting:
+Implicit and Explicit
+
+Syntax for explicit conversion.
+
+float x = 10.01;
+int y = (int) x;
+______________________________________________
+
+Static variables:
+That variable is common for all the objects for the class
+We have to define static variables for the attributes / fields that are common for all the objects.
+
+Ex. Number of eyes can be a static variable for the "Person" class, since it is common for all the objects.
+
+So, static variables are common variables for all the objects in the class.
+it is loaded whenever a class is loaded in JVM.
+So, static variables are for the class, not objects.
+It will be alive until the class is alive.
+
+static methods can be accessed directly with class name without creating an object.
+______________________________________________
+
+Scope of Variables Hierarchy:
+
+Static Variables > Instance Variables > Local Variables > Block Variables
+
+______________________________________________
+
+Wrapper Classes:
+The wrapper class in Java provides the mechanism to convert primitive into object and object into primitive.
+
+Conversion of primitive into an object is known as auto-boxing
+Conversion of objects into primitives is known as unboxing.
+
+unboxing:
+
+Integer a = new Integer(3);    
+int i=a.intValue();     //converting Integer to int explicitly  
+int j=a;                //unboxing, now compiler will write a.intValue() internally    
+
+______________________________________________
+
+Stack and Heap memory.
+
+Objects                 Heap
+Methods                 Stack
+Instance variables      Heap            (instance variables stay inside objects)
+Local variables         Stack
+
+______________________________________________

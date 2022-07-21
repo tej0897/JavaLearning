@@ -1,0 +1,101 @@
+Programming in Java.
+
+Classes and objects.  "ClassObjectSample.java" -> java code file.
+
+Class is a model to create objects.
+Class is a blueprint to create objects.
+Example: Person is a Class.
+
+Objects are things that are created from classes.
+Objects are real life entities.
+Example: Tejas, Vivek etc. are objects that are created from Person class.
+
+All objects will have the same attributes that are defined in the class.
+like eye color, age, gender etc will be same, but it's value differs.
+
+
+
+**** Syntax for creating a class ****
+
+
+// class name should always begin with Cap letter.
+
+public class Person {
+    String gender;
+    int age;
+
+    void eat(){
+        SOUT("I eat this way");
+    }
+
+    void dance(){
+        SOUT("I dance this way!");
+    }
+}
+
+
+______________________________________________
+
+***** creating an object ******
+
+
+Person tejas = new Person();
+
+______________________________________________
+
+we can set values / attributes to an object by using dot operator.
+
+tejas.dance();
+tejas.age = 25;
+tejas.gender = "Male";
+
+______________________________________________
+
+Rules for classes and objects:
+
+1. If we have public class in your file, name of the file should match the name of public class.
+i.e. public class' name should be same as the filename.
+
+2. Public class of your source file should have the main method.
+
+^^^ We have to use "Constructors" to set the values of Object attributes.
+
+3. We can use only one public class per source code file.
+
+______________________________________________
+
+Packages and imports.
+
+Packages is a name space that organizes set of similar classes and interfaces.
+Packages are like folders in our system where we organize stuff based on it's detail.
+Like English movies in one folder, Hindi in another.
+
+*** package creation ***
+
+right click on SRC folder
+create a new package
+name it. Ex: course.mypackageA
+Move the file to the created package. Drag and drop it and refactor.
+Or, right click and move and select package and refactor.
+
+
+Rule:
+
+package should be the first line of the program.
+import statements should be in between package and class declaration.
+
+
+^^^ main method is the starting point of the program flow.
+All the program does not have to have a main class in their code.
+So, only one main method is enough for an application to run.
+
+______________________________________________
+
+Access Modifiers in Java.
+
+Public -> Any code, anywhere can access.
+Protected -> code in same package and it's sub-classes from other package can access. (inheritance)
+Default -> code in same package can access.
+private -> code in same class can access.
+______________________________________________
+

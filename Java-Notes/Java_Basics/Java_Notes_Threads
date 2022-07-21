@@ -1,0 +1,266 @@
+Programming in Java
+
+Threads:
+
+Thread allows program to be more efficient by doing multiple things at the same time.
+It can be used to perform complicated task in the background without interrupting the main program.
+
+The concept of executing multiple threads at the same time is called multi-threading.
+
+Programmable approach to achieve multi-tasking is called multi-threading.
+
+Ex: our Operating System.
+
+Each task will be assigned a thread. 
+
+All the threads share a common memory, no separate memory will be allocated.
+This saves memory, switching b/w threads becomes easy.
+_______________________________________________________
+
+Two ways to create a thread.
+1. Extending the java.lang.Thread class (easy way) but not a good OOP concept.
+2. Implements the Runnable interface
+
+If we create a Thread using Runnable interface, it gives us a way to extend any class we like.
+
+In both the ways, we have to override run().
+
+We always write the code that needs to be run in the separate thread in the run().
+
+The run() can call another method.
+
+
+Things we have to do to run a job in Thread.
+1. Extending Thread Class or Implementing Runnable interface.
+2. Override run method and implement the job.
+
+Run() can be invoked by creating an object for the thread class.
+
+Once we create the objects, we can directly call the run() or start().
+
+Both will call run() implemented in our thread class.
+
+_______________________________________________________
+Overriding run()
+create object and run start() or run()
+//using class extends threads.
+
+
+Example:
+
+public class ThreadExamples extends Thread{
+    @Override
+    public void run() {
+        for (int i=0; i<3; i++){
+            System.out.println("i Value is :: "+i);
+        }
+    }
+
+    public static void main(String[] args) {
+        ThreadExamples test = new ThreadExamples();
+        test.start();
+    }
+}
+
+Drawbacks:
+
+If we use this method, we cannot extend other classes.
+_______________________________________________________
+
+Thread creation using "Runnable Interface".
+
+The object created is normal object what we create for other classes.
+Create thread instance by using "Thread t = new Thread()" and run start()
+
+
+public class ThreadExamples implements Runnable{
+    @Override
+    public void run() {
+        for(int i=0;i<3;i++){
+            System.out.println("The value if i is :: " +i);
+        }
+    }
+
+    public static void main(String[] args) {
+        ThreadExamples obj = new ThreadExamples();
+        Thread t = new Thread(obj);
+        t.start();
+    }
+}
+
+So, create an instance for our class, then pass that instance to Thread constructor.
+_______________________________________________________
+
+// creating multi thread instances.
+
+We can set names to our thread using setName(), to avoid confusion.
+
+public class ThreadExamples implements Runnable{
+    @Override
+    public void run() {
+        for(int i=0;i<3;i++){
+            System.out.println("The Current Thread is "+Thread.currentThread().getName()+", the value if i is :: " +i);
+        }
+    }
+
+    public static void main(String[] args) {
+        ThreadExamples obj = new ThreadExamples();
+        Thread t1 = new Thread(obj);
+        t1.setName("Thread 1");
+        Thread t2 = new Thread(obj);
+        t2.setName("Thread 2");
+        Thread t3 = new Thread(obj);
+        t3.setName("Thread 3");
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+}
+
+We created 3 threads, named them using setName()
+during execution of thread, Thread.CurrentThread.getName() to get the name of the current thread.
+
+Output:
+
+The Current Thread is Thread 2, the value if i is :: 0
+The Current Thread is Thread 1, the value if i is :: 0
+The Current Thread is Thread 3, the value if i is :: 0
+The Current Thread is Thread 1, the value if i is :: 1
+The Current Thread is Thread 2, the value if i is :: 1
+The Current Thread is Thread 1, the value if i is :: 2
+The Current Thread is Thread 3, the value if i is :: 1
+The Current Thread is Thread 3, the value if i is :: 2
+The Current Thread is Thread 2, the value if i is :: 2
+_______________________________________________________
+
+
+Multiple threads have access to the method and are accessing simultaneously.
+This creates a problem.
+
+Example:
+
+BookTickets.
+
+We check the  number of tickets available and then proceed to Book ticket.
+If there is only 1 ticket left and if 2 threads go inside the code, it'll book 2 tickets.
+
+To avoid this, we should control threads.
+We have to make one thread enter into the method, in this scenario.
+_______________________________________________________
+
+Java provides a way to Sync the task using "Sync Blocks" and "Sync Methods"
+
+Sync Blocks: Blocks that are marked with Sync Keyword.
+Sync Methods / Blocks allows only one thread to execute block / method.
+
+So, where ever we use Sync, only one thread will be allowed in that block / method.
+
+Just enter synchronized next to access specifier.
+
+example:
+
+// Sync method
+
+public synchronized void run(){
+    //statements
+}
+
+// sync block:
+
+public void run(){
+    synchronized(this){
+        //statements
+    }
+}
+
+_______________________________________________________
+
+sleep()
+
+we can make a thread sleep for the specified amount of time.
+If we invoke a thread while the thread is asleep, it'll throw Interrupted Exception.
+
+use IDE to fix this code for us. (It'll put try and catch methods for us)
+
+Example:
+
+public class ThreadExamples implements Runnable{
+    @Override
+    public synchronized void run() {
+
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("The Current Thread is " + Thread.currentThread().getName() + ", the value if i is :: " + i);
+            }
+
+    }
+
+    public static void main(String[] args) {
+        ThreadExamples obj = new ThreadExamples();
+        Thread t1 = new Thread(obj);
+        t1.setName("Thread 1");
+        Thread t2 = new Thread(obj);
+        t2.setName("Thread 2");
+        Thread t3 = new Thread(obj);
+        t3.setName("Thread 3");
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+}
+
+// there will be one second gap between each iterations.
+
+_______________________________________________________
+
+currentThread(): This method will return the current thread.
+_______________________________________________________
+
+setPriority(): Change the priority of the thread,
+        Every thread has a priority which is represented by int b/w 1 to 10.
+
+
+public static int MIN_PRIORITY: Max priority of thread: Value is 1.
+public static int NORM_PRIORITY: Normal Priority : Value is 5.
+public static int MAX_PRIORITY: Max : Value is 10
+
+Default Priority is 5.
+
+getPriority() to get the priority details of a thread.
+_______________________________________________________
+
+isAlive()
+
+To check if the thread is still alive.
+
+Sleep() is used to pause the process for few seconds at the time we want to.
+Wait() goes to sleep and will not come back till we call notify() or notifyAll().
+
+_______________________________________________________
+
+yield()
+
+Stops the currently executing thread and gives chance to other thread with same priority.
+
+If there are no threads with same priority, no waiting threads, or all waiting threads are low priority, then the same thread will execute.
+_______________________________________________________
+
+Thread States:
+
+New State: When thread is created, it's in new state. Start method has not yet invoked. Thread is not alive.
+
+Runnable state: When we invoke start(), thread is in runnable state. Thread is read to run anytime.
+Thread is considered to be alive when it is in runnable state.
+A thread can come back to runnable state from running state after "Waiting / Blocking" state.
+
+Running state: Whenever a thread is running and code is executed, then we consider it to be in running state.
+
+Waiting / blocked / sleeping: Thread is alive, but is idol. Not eligible to run.
+
+Dead: A thread is considered dead when it's thread method completes. Once thread is dead, we can't get it back. If we invoke start() on a dead thread, it'll throw RunTimeException.
+
+_______________________________________________________

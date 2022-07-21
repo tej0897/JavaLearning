@@ -1,0 +1,697 @@
+Programming in Java
+
+Collections!
+
+Collection is a data-structure.
+i.e. a group of data / objects.
+
+A collection is a container for a group of objects.
+
+Java provides a architecture to store and manipulate a group of objects efficiently.
+
+Searching, sorting, insertion, deletion, manipulation.
+_______________________________________________________
+
+Collections has 3 components.
+1. interfaces
+2. classes
+3. Algorithms
+
+Collection Interface - top hierarchy.
+Includes important features like add(), size(), iterator(), clear(), remove()
+
+                        Collection <interface>
+        Set<interface>      List<interface>     <Queue interface>
+
+
+
+
+Maps <interface>
+Only interface that does not inherit from collection interface.
+
+
+Collection Classes.
+
+Real implementation of these interfaces.
+
+
+
+Collection structure:
+
+
+
+                                                                                Collection (i)
+
+                                                Set (i)                         List (i)                        Queue (i)
+                                HashSet         Sorted Set (i)              Array       Vector          LinkedList      Priority Queue
+                            LinkedHashSet       NavigableSet(i)
+                                                Tree Set
+
+Maps:
+
+                                                Map (i)
+
+                                HashTable           HashMap             SortedMap(i)
+                                                  LinkedHashMap         NavigableMap (i)
+                                                                        Tree Map
+
+
+
+                                                                        Objects
+                                                            Array                   Collections
+
+
+_______________________________________________________
+
+Algorithms:
+They are methods that helps in using these structures.
+Like clear(), add(), pop(), clone(), push(), delete() etc.
+_______________________________________________________
+
+So, basically 4 flavors of collections.
+
+List
+Set
+Maps
+Queues
+
+
+List: used to store list of things.
+Set: used to store Unique things.
+Maps: If we want to store data in Key-Value format
+    unlike List and Set, accessing data is easy in Maps.
+    Since maps uses a key for every object, we do not have to iterate through the list of data in maps.
+    If we know the key, we can directly access the element.
+Queue: If we want data to be accessed in the same way it was added.
+
+Things to remember while choosing the right collection:
+1. Ordered or un-ordered
+2. Sorted or un-sorted
+_______________________________________________________
+
+Real-life example:
+
+1000 employees with ID, name
+need to fetch employee with ID 505. which is best collection?
+
+List: stores things, we can iterate, best case scenario, we get result in 1st search
+worst case scenario, it'll take 1000 iterations. not feasible.
+
+Sets: It contains unique employees. other than this, set is same-as List.
+
+Maps: Stores data in employee-ID i.e. key-value.
+If we need 505, we get it in single iteration.
+
+_______________________________________________________
+
+LISTS:
+
+List cares about index.
+So we get certain methods to access like get(), add(index)
+
+If we specify list index, it'll add it there, otherwise end of list.
+
+List has arrayList, Vector and LinkedList
+_______________________________________________________
+
+ArrayList:
+Only difference between array and arrayList is "Array" is fixed in size.
+
+ArrayList grows dynamically in size as we add elements.
+If we remove elements from array, it won't shrink.
+But, ArrayList dynamically shrinks as we remove stuff from them.
+
+ArrayList is ordered-NotSorted.
+
+Types of adding.
+add (normal add), add (index and element) adds in specified position
+addAll(collection)  adds all the elements from another collection to specified one.
+addAll with index, adds all elements from other collection to ours in specified position.
+
+We can specify what time must be added to arrayList using <>
+Example: ArrayList <String> myList = new ArrayList();
+
+We can add specified initial capacity : ArrayList (int initialCapacity)
+We can make a list containing elements of specified collection : ArrayList(Collection<? extends E> c)
+_______________________________________________________
+
+Code:
+
+package collections;
+
+import java.util.ArrayList;
+
+public class ListsExamples {
+    public static void main(String[] args) {
+        ArrayList <String> myList = new ArrayList();
+        myList.add("Apple");
+        myList.add("Mango");
+        myList.add(0, "Banana");
+        myList.remove("Mango");
+        for(String fruit : myList){
+            System.out.println(fruit);
+        }
+    }
+}
+
+_______________________________________________________
+
+Sorting the collection:
+
+Syntax: Collections.sort(LISTNAME);
+Example: Collections.sort(myList);
+
+If we have use user defined objects like person, car etc. compiler will not know how to sort it.
+We have to tell framework to compare the names from person objects and sort it.
+We have to tell how to compare.
+this is done in the person class.
+2 changes.
+Add Implements
+Override compareTo function and return name.compareTo(p, name);
+
+//Example to add person to the list and display their names.
+
+ArrayList <Person> myList = new ArrayList();
+myList.add(new Person("Tej", 22, "male"));
+myList.add(new Person("Alexa", 24, "female"));
+myList.add(new Person("Vivek", 28, "male"));
+for(Person p : myList){
+    SOUT(p.getName());
+}
+_______________________________________________________
+
+//Example to sort them according to their names.
+
+>> go to Person class, add "implements Comparable<Person>"
+>> in person class, override compareTo(Person p)
+
+ public int compareTo(Person p){
+    return name.compareTo(p, name);
+ }
+
+
+
+ArrayList <Person> myList = new ArrayList();
+myList.add(new Person("Tej", 22, "male"));
+myList.add(new Person("Alexa", 24, "female"));
+myList.add(new Person("Vivek", 28, "male"));
+Collections.sort(myList);
+for(Person p : myList){
+    SOUT(p.getName());
+}
+_______________________________________________________
+
+LinkedList:
+
+LinkedList stores data in nodes.
+Nodes have two parts.
+Data and Address (data is normal data, address is the address of the next node)
+
+Single node will have data and address as null.
+
+First node of the LinkedList is the head node.
+New Node added?
+Head will point to new Node. It's address will be Null.
+
+By default. elements will be added in the end of LinkedList.
+
+addFirst() -> to add node in the first position. (default function)
+
+Addition and deletion is fast in LinkedList compared to ArrayList.
+ArrayList is best choice when it comes to search.
+_______________________________________________________
+
+DoublyLinkedList:
+3 parts.
+2 Address and 1 data
+
+PrevAddress-Data-NextAddress
+
+Singly LinkedList can travel in only one direction.
+Doubly LinkedList can travel in both directions.
+
+Use LinkedList if there is frequent addition and deletion in the application.
+
+_______________________________________________________
+
+LinkedList provided the following functions.
+AddFirst(), AddLast(), RemoveFirst(), RemoveLast(), GetFirst(), GetLast()
+Adding first makes the first element as Head
+removing first makes the next element as Head.
+
+Order is maintained in LinkedList.
+Most methods are same-as ArrayList in LinkedList.
+
+Example:
+
+package collections;
+
+import java.util.LinkedList;
+
+public class LinkedListExample {
+    public static void main(String[] args) {
+        LinkedList <String> myList = new LinkedList<>();
+        myList.add("a");
+        myList.add("f");
+        myList.addFirst("z");
+        myList.addLast("t");
+        myList.add("b");
+        myList.removeLast();
+        for(String s : myList){
+            System.out.println(s);
+        }
+    }
+}
+_______________________________________________________
+
+Vector:
+Vector and HashTable were the original collections.
+Rest were added later.
+
+Vector are same as arrayList, but vector methods are synchronized for thread safety.
+
+i.e. in multi-thread concept, only one thread is allowed to execute.
+this concept makes vector slower than arrayList.
+
+By default,
+arrayList size will be 10. If 11th element is added, size increases by 50% making the size to be 15.
+Vector size will also be 10. When extra element is added, size is increased by 100% making the size as 20.
+
+These are the two difference between ArrayList and Vector.
+
+1. Vector is Synced.
+2. Size is increased by 100%
+
+Example:
+
+package collections;
+
+import java.util.Vector;
+
+public class VectorExample {
+    public static void main(String[] args) {
+        Vector<String> myList = new Vector<>();
+        myList.add("a");
+        myList.add("b");
+        myList.add("c");
+        for (String s : myList){
+            System.out.println(s);
+        }
+    }
+}
+
+_______________________________________________________
+
+Sets:
+
+It will not allow duplicates to maintain uniqueness.
+It does not maintain order. The order in which we insert element will not be positioned the same way in which it went in.
+
+Set interface has 3 classes.
+HashSet, LinkedHash Set and TreeSet.
+
+If we use TreeSet, it will internally sort data so we can traverse it.
+So, if we use TreeSet, the object must "implement Comparable" and override compareTo method like we did earlier to sort Person class in ArrayList.
+
+Set is not index based, so we cannot add elements using index option.
+Set uses equals method to determine if the element exists or not.
+
+HashSet: default size: 16
+
+HastSet()       -> normal
+HastSet(int initialCapacity)        -> mentioning capacity
+hastSet(int initialCapacity, float loadFactor) ___Loadfactor is how much the set should be filled before the size of it is automatically increased. If it is 0.75, when the set is 75% full, the set's capacity is increased.
+hastSet(Collection<? extends E> c)      -> adding elements from other collection.
+
+
+public class SetsExamples {
+    public static void main(String[] args) {
+        HashSet <String> mySet = new HashSet<>();
+        mySet.add("Apples");
+        mySet.add("Mangoes");
+        mySet.add("Banana");
+        mySet.add("Mangoes");
+        mySet.add("Banana");
+        for(String fruits : mySet){
+            System.out.println(fruits);
+        }
+    }
+}
+
+Output:
+Apples
+Mangoes
+Banana
+
+// it does not print duplicates and the order is not maintained.
+
+_______________________________________________________
+
+// creating HashSet using existing HashSet.
+
+public class SetsExamples {
+    public static void main(String[] args) {
+        HashSet <String> mySet = new HashSet<>();
+        mySet.add("Apples");
+        mySet.add("Mangoes");
+        mySet.add("Banana");
+        System.out.println("Old basket fruits are: \n");
+        for(String fruits : mySet){
+            System.out.println(fruits);
+        }
+
+        HashSet <String> newSet = new HashSet<>(mySet);
+        newSet.add("WaterMelons");
+        newSet.add("Grapes");
+        System.out.println("\n New basket fruits are: \n");
+        for (String newFruits : newSet){
+            System.out.println(newFruits);
+        }
+    }
+}
+_______________________________________________________
+
+If we enter String or int value, the compiler checks it with the elements in set and adds it, if it is unique
+The compiler has overridden the compare() to do this activity
+
+If we enter user-defined objects like Person, the Dev must decide on what basis the comparison must be done to check if both are equal.
+ex. using name attribute to check, like if there are two Tejas, or employee ID, to check if there are two users with same Employee ID.
+
+HashSet<Person> mySet = new HashSet();
+mySet.add(new Person("Alex", 22, "male"))
+mySet.add(new Person("Alex", 22, "male"))
+
+if we do not override, and add these two to set, it will add, since P1 and P2 are different.
+We have to manually override in person class (two steps) to achieve the goal of marking P1 and P2 as same object.
+
+^^^
+If two objects are equal, then hash code of those objects should also be equal.
+
+So, Whenever we override the equals() method from object class,
+we must override the hashCode() method from object class.
+_______________________________________________________
+
+In general, in Object Class, equals() uses "==" to compare two objects.
+
+// go to Person Class.
+
+// implements Comparable<Person>
+
+// in IntelliJ - code - generate - override - select equals and hashCode()
+
+public int hashCode(){
+    return this.name.hashCode();
+}
+
+
+public boolean equals(Object obj){
+    return obj instanceOf Person &&
+    this.name.equals((Person)(obj).name) &&
+    this.age == (((Person)(obj).age));
+}
+
+_______________________________________________________
+
+Now Person / Object with same name and age are removed from set.
+_______________________________________________________
+
+Linked HashSet.
+
+Ordered Version of HashSet.
+Maintains Doubly-LinkedList across all the elements.
+
+So, use this when we care about iteration order.
+If we want to traverse or maintain list from the order we insert, use this one.
+
+public class SetsExamples {
+    public static void main(String[] args) {
+        LinkedHastSet <String> mySet = new LinkedHastSet<>();
+        mySet.add("Apples");
+        mySet.add("Mangoes");
+        mySet.add("Banana");
+        mySet.add("Mangoes");
+        mySet.add("Banana");
+        for(String fruits : mySet){
+            System.out.println(fruits);
+        }
+    }
+}
+
+//outputs in the same way we inserted the elements.
+
+Except for order, everything else is same for hashSet and Linked HashSet.
+_______________________________________________________
+
+Tree Set:
+
+In collection framework, only two are sorted instances / classes
+They are, TreeSet and TreeMap
+
+TreeSet makes sure elements are in ascending order.
+If we want to sort custom objects, we have to override in person class, on what basis the sorting should happen.
+
+Example:
+
+public class SetsExamples {
+    public static void main(String[] args) {
+        TreeSet <String> mySet = new TreeSet<>();
+        mySet.add("B");
+        mySet.add("F");
+        mySet.add("C");
+        mySet.add("E");
+        mySet.add("A");
+        for(String fruits : mySet){
+            System.out.println(fruits);
+        }
+    }
+}
+
+// it will sort from a-z;
+
+_______________________________________________________
+
+Maps:
+
+Used to store Key-Value pairs.
+add(), search(), remove(), iterate()
+
+finding out specific element in this is very easy, no need to iterate.
+allows unique elements, like set, it uses equals() to compare.
+
+                    Map (i)
+HashTable           HashMap             SortedMap (i)
+                    LinkedHashMap       NavigableMap (i)
+                                        TreeMap
+
+
+TreeMap is sorted collection of elements.
+
+_______________________________________________________
+
+HashMap:
+"unsorted" and "unordered"
+key-value
+
+Syntax:
+
+myMap.put(<key>,<value>)
+myMap.put("a","Apple");
+
+myMap.get("a");
+
+
+Keys are unique. Elements with same key are eliminated.
+
+HashMap works on "Hashing" principle.
+
+Hashing : converting a key into another value, hash code.
+in hashing, hash functions are used to link the key and value in HashMap.
+
+_______________________________________________________
+^^^^^^^^^
+List and set uses add() to add elements. Here, we use put().
+
+myMap.put("IN", indiaObj);          Where indiaObj -> object
+
+
+1. When we pass this, Key, i.e. IN is sent to hash_function.
+2. hash_function will return the hash code for the key.
+3. Let's say it returns 2 as hash code.
+4. The value will be stored in 2nd index of the bucket.
+(Buckets are like mixture of linkedList and arrays. they have indexes and based on hash value, data will be stored in that index)
+We can manually override the hash function, on how to generate the hash code in the main class.
+
+5. The value stored in bucket will be both key and value.
+6. The Node contains two parts. data and address. Address will be null.
+
+Let's say there is another country, US with hash value 5, it'll sit in the 5th index with address pointing to Null.
+
+Another country UK, if the hash value of that is also 2, then both India and UK will become linkedList.
+India's address will have UK's node's value. UK's address will point to NULL.
+
+_______________________________________________________
+^^^^^^^^^^^^^^^
+Retrieving data from HashMaps:
+
+myMap.get("IN")
+
+IN will be passed to hash function
+It'll create hash code which is 2.
+it'll go to second index and check.
+there are two values, IN and UK
+It'll check the key value using equals() and get the correct node.
+_______________________________________________________
+
+We use entrySet() to iterate and get both key and value from the HashMap.
+
+Syntax:
+for(Map.Entry<String, String> maps : myMap.entrySet()){
+    SOUT(map.getKey()+map.getValue());
+}
+
+public class HashMapsExample {
+    public static void main(String[] args) {
+
+        HashMap<String, String> myMaps = new HashMap<>();
+        myMaps.put("IN", "India");
+        myMaps.put("CN","China");
+        myMaps.put("US","United States");
+        myMaps.put("UK", "United Kingdom");
+        for(Map.Entry<String,String> maps:myMaps.entrySet()){
+            System.out.println(maps.getKey() + ":" + maps.getValue());
+        }
+    }
+}
+
+Output:
+
+IN:India
+UK:United Kingdom
+CN:China
+US:United States
+_______________________________________________________
+
+When we add same key with different value, then the first key entry is taken, value will be overridden.
+
+Ex:
+        myMaps.put("IN", "India");
+        myMaps.put("CN","China");
+        myMaps.put("US","United States");
+        myMaps.put("CN", "United Kingdom");
+
+Output:
+
+IN:India
+UK:United Kingdom
+CN:United States
+_______________________________________________________
+
+HashMap allows one null value in the Key.
+If we add another "null" as key, it'll be overwritten.
+
+_______________________________________________________
+
+HashTable:
+
+Synchronized counter-partner to HashMap.
+All the methods in HashTable are synchronized. that is the only difference between HashTable and HashMaps.
+
+hashTable will not allow NULL value as key.
+_______________________________________________________
+
+LinkedHashMap:
+
+Same as HashMap, but it maintains order.
+Slower than HashMap while adding and removing.
+It is faster iteration.
+_______________________________________________________
+
+TreeMap:
+
+It is sorted Map.
+uses compareTo() for comparing.
+We can override when we write custom objects and has to be sorted.
+Everything is same as HashMap.
+_______________________________________________________
+
+Queue:
+
+Queue is interface.
+LinkedList or Priority Queue are it's classes.
+
+Queue works on FIFO (First-In-First-Out)
+
+Adding element in queue is called "Enqueue"
+Removing element from queue is called "Dequeue"
+
+Maintains the concept of head and tail.
+
+Head points at the first element. it is also known as Peek.
+Tail keeps getting incremented as the elements are added. (Rear)
+
+Priority queue keeps elements in sorted order.
+
+If we use LinkedList for queue, it'll maintain the order in which the elements were added in the queue.
+
+_______________________________________________________
+
+Remove(), always use poll() since it is safer.
+
+If no arguments are given, it'll remove the peak one.
+If we specify which element to remove, it'll do that. myQueue.remove("Apples");
+
+We can also poll()
+poll() -> remove head of the queue and return Null if the queue is empty
+Remove() -> removes head but throws an exception if the queue is empty.
+
+_______________________________________________________
+Example for queue:
+
+
+public class QueueExample {
+    public static void main(String[] args) {
+        Queue<String> myQueue = new LinkedList<>();
+        myQueue.add("Apple");
+        myQueue.add("Mangoes");
+        myQueue.add("Banana");
+        myQueue.add("Grape");
+        myQueue.poll();
+        for (String fruits: myQueue){
+            System.out.println(fruits);
+        }
+    }
+}
+
+
+// output:
+
+Mangoes
+Banana
+Grape
+_______________________________________________________
+
+Priority Queue:
+
+It will not maintain insertion Order, but sorts it.
+
+public class QueueExample {
+    public static void main(String[] args) {
+        Queue<String> myQueue = new PriorityQueue<>();
+        myQueue.add("Mangoes");
+        myQueue.add("Apple");
+        myQueue.add("Banana");
+        myQueue.add("Grape");
+        myQueue.poll();
+        for (String fruits: myQueue){
+            System.out.println(fruits);
+        }
+    }
+}
+
+Output:
+
+Banana
+Grape
+Mangoes
+
+_______________________________________________________

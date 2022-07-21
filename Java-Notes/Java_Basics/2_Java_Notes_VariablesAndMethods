@@ -1,0 +1,203 @@
+Programming in Java
+
+Variables and Methods
+
+Types of Variables:
+Primitive and Reference variables
+
+Primitive int, char, byte, boolean, long etc.
+Reference variables - we declare the reference to a variable.
+Ex. Animal dog, Person tejas, etc.
+
+_______________________________________________________
+
+Instance Variables
+
+Variables that are defined inside a class and outside a method, it is called instance variables.
+They will be initialized whenever we initialize the class, i.e. whenever we create an object for an class.
+
+example for an instance variables is the following:
+
+class Person {
+    int age;
+    String name, gender;
+
+    void sleep() {
+        SOUT("I sleep for this many hours");
+    }
+}
+
+
+// in this case, the age, name and gender variables are instance variables.
+
+So, when we create an object, these variables will be initialized.
+Ex. Person tejas = new Person();
+
+
+^^ by default, values will be assigned to instance variables.
+like 0 for int.
+
+SO, we can use instance variables even without initiating it.
+
+
+Local variables.
+
+They must be declared before using them.
+They do not have default values.
+They must be initiated before using them.
+They are normal variables like "i" in FOR_LOOP.
+
+
+while assigning float variables, add "f".
+
+_______________________________________________________
+
+Type casting.
+
+Implicit casting - compiler does it for us.
+Ex. long to int or int to long.
+
+Explicit casting - we have to do it.
+Ex. float to int.
+
+Syntax for explicit conversion.
+
+float x = 10.01;
+int y = (int) x;
+
+_______________________________________________________
+
+Scope of variables.
+
+Static variables - longest / most extended scope.
+We can declare instance variable as static. That variable is common for all the objects for the class
+We have to define static variables for the attributes / fields that are common for all the objects.
+
+Ex. Number of eyes can be a static variable for the "Person" class, since it is common for all the objects.
+
+So, static variables are common variables for all the objects in the class.
+it is loaded whenever a class is loaded in JVM.
+So, static variables are for the class, not objects.
+It will be alive until the class is alive.
+
+
+Instance Variables
+They are created when an object's instance is created.
+They are alive until the object is alive and are used.
+
+Local variables
+They will be alive only until the method is in the STACK.
+once it pops out, they die.
+
+Block Variables
+They will be alive only until the block is running.
+
+_______________________________________________________
+
+
+If we make a variable as static, then it is common for all the objects.
+i.e. a static variable is a common variable for all objects.
+
+_______________________________________________________
+
+Wrapper Classes
+
+It provides a way to Wrap primitive data onto objects.
+A wrapper class is a class, whose object wrap or contain primitive data types.
+
+Java is a object oriented programming language.
+We deal with objects a lot, like in collection, serialization, synchronization etc.
+involving primitive data types in this is easy.
+
+Java supports only call by value.
+If we pass primitive value, it will not change the original value
+But, if we convert primitive value in an object, it will change the original value.
+
+Syntax:
+
+int count = 10;
+
+Integer count = new Integer(10);        //old syntax
+Integer count = Integer.valueOf(10);
+
+/*
+    Class Integer {
+        int count = 10;
+    }
+*/
+
+Integer count = 10;
+count.equals(var_name);
+
+^^ auto-boxing - auto conversion of primitive to it's corresponding wrapper class.
+
+^^ static methods can be accessed directly with class name without creating an object.
+
+_______________________________________________________
+
+Arrays:
+
+Declaration:
+
+int [] arrayName = new int[3];      // hold 3 int values.
+
+All the values are defaulted to 0.
+Array size is fixed, cannot change it later.
+
+arrayName[0] = 1;
+arrayName[1] = 2;
+arrayName[2] = 3;
+
+for(int i : arrayName){
+    SOUT(i);
+}
+
+
+We can initialize array values directly while creating it.
+
+Ex.     int [] arrayName = {1, 2, 3, 4, 5};
+
+______________________________________________
+
+Array for objects:
+
+Person [] users = new Person[3];
+
+// assign values for objects.
+
+Person tejas = new Person();
+tejas.name = "Tejas";
+tejas.age = 18;
+tejas.gender = "Male";
+
+// for 2 more objects.
+
+users[0] = tejas;
+users[1] = ...;
+users[2] = ...;
+
+
+// to print age of tejas
+
+SOUT(users[0].age);
+
+_______________________________________________________
+
+
+Stack and Heap memory.
+
+JVM handles memory handling stuff.
+
+Objects                 Heap
+Methods                 Stack
+Instance variables      Heap            (instance variables stay inside objects)
+Local variables         Stack
+
+Reference variables hold reference to an object,
+Ref Var itself is not an object.
+
+So, wherever it is declared, it will be reside there.
+If Ref Var is declared as Instance Variable, then it will reside on Heap memory.
+If Ref Var is declared as a method, will it reside on stack memory.
+
+_______________________________________________________

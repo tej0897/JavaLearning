@@ -1,0 +1,178 @@
+Functional Programming in Java
+
+Functional Interface:
+Takes one input, returns one output.
+apply(), compose(), andThen()
+
+Function<Integer, Integer> addThenMultiply = multiply.compose(add);
+// compose to be used as unofficial andThen.
+
+andThen performs / executes the functions in the order it is mentioned.
+compose : executes the first parameter function that is being passed to the compose function and then it executes the outer-function.
+
+__________________________________________________________
+
+Bi Functional Interface:
+Takes two inputs and returns one output.
+
+Has only andThen()
+
+Takes three inputs parameters, one for output, 2 for input.
+
+In example Code,
+Two inputs are List of students and one Predicate for filtering
+output is map of students' name and GPA
+__________________________________________________________
+
+UnaryOperator and BinaryOperator Functional Interface:
+
+UseCase for Unary Operator:
+Input and output are of the same type.
+In those cases, we can use Unary instead of functions.
+
+Takes one input and returns the same input.
+Apply() for calling the UnaryOperator.
+
+Example:
+UnaryOperator <String> unaryOperator = (name) -> name.concat("Default");
+
+
+__________________________________________________________
+
+BinaryOperator takes two inputs and returns one output.
+
+Use when we need same input and output type.
+Two extra methods, minBy() and maxBy()
+
+
+In maxBy and minBy, we use comparator as input to check the max or min using compareTo()
+
+Example in code.
+
+__________________________________________________________
+
+Supplier Functional Interface:
+
+Has only one method.
+Get()
+
+Exact opposite of consumer interface.
+Consumer takes input, does not return any output.
+Supplier does not take input, but returns output.
+
+Example:
+
+Supplier instance is used to return a list of students.
+__________________________________________________________
+
+Method Reference:
+
+Its purpose is to simplify the implementation Functional Interfaces.
+
+simpler and more readable code.
+
+Lambda helps in reducing writing inner classes where as
+Method Reference helps in simplifying Lambda Expression
+
+Shortcut for lambda expressions.
+Refer a method in a class.
+__________________________________________________________
+
+Syntax:
+
+ClassName :: instance-methodName
+ClassName :: static-methodName
+Instance :: methodName
+
+Example:
+
+Lambda expressions referring to a method directly.
+
+Using Lambda:
+Function<String,String> toUpperCaseLambda = (s)->s.toUpperCase();
+
+Using Method Reference:
+Function<String,String> toUpperCaseMethodRefernce = String::toUpperCase;
+
+__________________________________________________________
+
+Where Method Reference is not Applicable ?
+
+When we write our own logic.
+We are not calling any method which the Interface can refer to.
+
+like, in above example, Function can refer .toUpperCase(), so we can refer that instance.
+In below example, we have written our logic, so we cannot use it.
+
+Example:
+Predicate<Student> predicateUsingLambda = (s) -> s.getGradeLevel()>=3;
+
+__________________________________________________________
+
+Example:
+static Consumer<Student> consumer1 = (s) -> System.out.println(s);      // consumer
+static Consumer<Student> consumer1 = System.out::println;
+
+static Function<String, String> toUpperCaseLambda = (s) -> s.toUpperCase();     // function
+static Function<String, String> toUpperCaseMethodRef = String::toUpperCase;
+
+__________________________________________________________
+
+Refactor Method Reference:
+
+If we want to use Method reference for data that is tampered,
+we have to create a function in class, and then use that as Reference.
+
+Example in code.
+__________________________________________________________
+
+Constructor Reference:
+We can use Constructor references only in context of Functional Interfaces.
+
+
+Syntax:
+
+ClassName :: new
+
+Example:
+Supplier<Student> studentSupplier = Student::new;   // creates supplier that returns new object whenever Get() is invoked using studentSupplier interface.
+
+        Student Class should have empty constructor.
+
+
+Invalid:
+Student student = Student::new;         // compilation issue
+
+Example:
+
+check out code
+__________________________________________________________
+
+Local variables and Lambdas:
+
+Variables inside methods are local variables
+
+There are some restrictions in using Local Variables in Lambda:
+
+1. Not allowed to use the same the local variable name as lambda parameters or inside the lambda body.
+2. Not allowed re-assign a value to a local variable.
+
+
+No restrictions on instance variables / Static Variables
+
+Lambdas are allowed to use local variables but not allowed to
+modify it even though they are not declared final. This concept is
+called Effectively Final
+
+Advantages of Effectively Final:
+• Easy to perform concurrency operations.
+• Promotes Functional Programming and demotes the Imperative style programming.
+
+
+
+
+
+
+
+
+

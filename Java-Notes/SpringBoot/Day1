@@ -1,0 +1,15 @@
+Spring Boot
+
+To start / get a baseline for creating an API, go to Spring Initializr
+
+Spring Initializr > enter details and dependencies and download basic source code.
+Dependencies like Spring Web, Spring boot Dev tools.
+
+Spring web is used to create web based APIs.
+
+Download the file, extract and open it.
+
+pom.xml file contains all the dependencies required for API creation. We can add / remove dependencies based on requirement.
+
+@SpringBootApplication is the entry point.
+

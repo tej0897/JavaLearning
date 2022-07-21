@@ -1,0 +1,154 @@
+Programming in Java
+
+Methods
+
+Group of statements that are grouped together to perform an operation.
+
+> Methods are called whenever we need them.
+> They are reusable.
+______________________________________________
+
+Syntax:
+
+<Modifier> <return type> <methodName> (parameters) {
+    // statements
+}
+
+modifiers -> Public, Private, Protected, Default
+
+
+Ex:
+
+public void MethodExample(){
+    SOUT("Hello");
+}
+______________________________________________
+
+Methods cannot be created inside another method.
+It has to be created and handled separately.
+
+Order of methods does not matter, it just runs / executes whenever it is called.
+______________________________________________
+
+^^^ Static members can access only static members (while accessing other methods)
+let's say, main method is static, another method is a non-static member,
+if we wanna access that method, we have to create an object for that method
+and then access the method using the dot operator.
+
+or just make the other method to static.
+
+^^^
+A static variable acts as a global variable and is shared among all the objects of the class.
+A non-static variables are specific to instance object in which they are created.
+
+hence, use static methods only when needed.
+
+______________________________________________
+
+Method parameters are like local variables.
+scope is also same, until the block.
+We can have up to 255 parameters in a method.
+______________________________________________
+
+Example:
+package course.methodPkg;
+
+public class MethodExample {
+    public static void main(String[] args) {
+        MethodExample obj = new MethodExample();
+        obj.printMessage("female");
+    }
+
+    public void printMessage(String gender){
+        String newMsg = gender.equalsIgnoreCase("Male")? "Hello Sir!" : "Hello Madam!";
+        System.out.println(newMsg);
+    }
+}
+
+______________________________________________
+
+Modifiers for Methods.
+
+Private: if we cant the method accessibility to class level.
+
+Public: Everyone gets access.
+
+Protected: to package level and it's sub classes.
+
+Default: to package level.
+
+Final: Method overriding is not possible.
+
+Static: Method is for the class. No need to create object for class.
+
+Abstract: If we do not want to write any method statements, we can use this access specifier
+If we wanna declare a method, instead of defining it, we should use abstract method.
+Method which has no method body.
+
+If we have at least one abstract method in our class, then class should be made as abstract.
+
+Synchronized: Only a single thread can access this method while handling multi-thread concepts
+Other threads will wait until the current ones come out of the method.
+
+Strictfp: Keyword used to restrict floating point calculations in Java.
+We can user Strictfp for classes, methods and interfaces. (ensures we get the same result when we perform calculations on any platform )
+
+native: (methods implemented in C or C++ are native / foreign methods.)
+Used to indicate that the method is implemented in JNI. (Java Native Interface)
+
+______________________________________________
+
+^^ Overriding :
+
+If subclass (child class) has the same method as declared in the parent class,
+it is known as method overriding in Java.
+
+In other words,
+If a subclass provides the specific implementation of the method
+that has been declared by one of its parent class, it is known as method overriding.
+
+
+Rules for Java Method Overriding:
+
+The method must have the same name as in the parent class
+The method must have the same parameter as in the parent class.
+There must be an IS-A relationship (inheritance).
+
+______________________________________________ (more about this in Polymorphism)
+
+Lambda expression:
+
+-> is Lambda operator
+
+syntax for Lambda expression:
+
+(optional) (Arguments) -> body
+______________________________________________
+
+Example:
+
+public int incrementByOne(int num) {
+    return ++num;
+}
+
+can be written as:
+
+(num) -> ++num;
+ 
+______________________________________________
+
+Sample code for Lambda expression:
+
+interface NumExamples{
+    public int incrementByOne(int num);
+}
+
+public class MyClass {
+    public static void main(String[] args) {
+       NumExamples result = ( num) -> ++num;
+    }
+}
+
+______________________________________________ (learn about lambda later)
+
+

@@ -1,0 +1,88 @@
+Programming in Java
+
+If statements:
+
+^^^ if there are multiple if-else statements, and more than once statement is true,
+then the first conditional statement will be executes and the rest will be ignored even if they are True.
+
+______________________________________________
+
+Switch statements:
+^^^ Major difference in switch from if is that, if a statement is true, it will execute next statements as well.
+To avoid this, we can use Break keyword.
+Add Break even to default cause we can add default in between cases as well.
+
+
+Syntax:
+
+switch (expression) {
+    case constant 1:
+        //code block
+    case constant 2:
+        //code block
+    case constant 3:
+        //code block
+
+    default:
+}
+
+
+example:
+
+int test = -1;
+        switch(test){
+            case 1:
+                System.out.println("Value is test is 1");
+                break;
+            case 2:
+                System.out.println("Value of test is 2");
+                break;
+            case 3:
+                System.out.println("Value of test is 3");
+                break;
+            default:
+                System.out.println("Value of test is greater than 3 or less than 1");
+        }
+______________________________________________
+
+
+Loops.
+
+For loop -> when number of iterations is known / fixed.
+
+Syntax:
+
+for( int i = 0; i < 10 ; i++)
+
+for arrays' display:
+for (int i : arrayName){
+    // do stuff
+}
+
+^^^ use Break to come out of loop. We can also use "Return" or "System.exit()"
+return sends code reader back to the method that was called.
+system.exit() will stop all program execution.
+
+"Continue" : to skip one iteration.
+example:
+
+// do not print if the array element with the value 4.
+
+int [] arraytest = {5,4,3,4,5};
+
+        for(int i : arraytest){
+            if (i == 4){
+                continue;
+            }
+            System.out.println("array element " + (i) + " is : "+ i);
+        }
+
+______________________________________________
+
+While loop -> use when we do not know how many iterations
+______________________________________________
+
+DO While loop -> will execute statements once, rest depends on the condition.
+
+______________________________________________
+

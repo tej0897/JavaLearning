@@ -1,0 +1,32 @@
+Programming in Java
+
+Encapsulation:
+
+Showing necessary details.
+
+We should not allow users to access class variables directly.
+We should grant them access to methods which in turn uses variables.
+
+So, encapsulation is declaring variables as private and making methods public
+_______________________________________________________
+
+Declare all class variables as Private.
+Use Getters and Setters for making private variables accessable.
+So, when we use this, (getName()), we can access Private variables.
+
+If we want to set value for a Private variable, use Setter, i.e.
+setName()
+to print the values or retrieve the data, use get method
+
+So, setter is used to initialize the values
+getter is used to retrieve the values and use them.
+
+We use IDE to create setters and getters
+
+if we need few validators, we can set them in setters(), like
+the type of input given for String (name) etc.
+
+If we want to remove the option of users setting values of something,
+we can just remove the setters. // to make it only readable
+
+_______________________________________________________

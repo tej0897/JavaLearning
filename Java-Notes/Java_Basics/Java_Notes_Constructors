@@ -1,0 +1,142 @@
+Programming in Java
+
+Constructors:
+
+A block of code similar to methods
+it will execute a block of code when it is called.
+
+Syntax:
+
+public class Person {
+    Person() {
+
+    }
+}
+
+^^^ constructor should have the same name as Class and should not have return value.
+
+_______________________________________________________
+
+Difference between method and a constructor:
+
+Public class Person {
+    void Person(){
+
+    }
+}
+
+
+The above example is a method since it has return type for Person().
+We can declare a method with class name, but if it has a return value, it is method, not a Constructor.
+
+2 simple rules for constructors:
+
+> Constructor name should be same as class name
+> Constructor should not have a return type.
+
+_______________________________________________________
+
+^^^ A constructor will be called whenever we create an object for a class.
+i.e. when we use "New" Keyword, a constructor will be called.
+
+Person Alex = new Person();
+
+Person() is the constructor call.
+
+Constructor are used to initialize instance variables.
+
+When we call constructor like above, i.e. Person Alex = new Person();
+we are not assigning values to attributes (like age, name, gender)
+
+They will have default values, i.e. age = 0; gender = null; name = null;
+
+
+We can create objects by passing instance variables values during construction call.
+Ex:
+
+public class Person(){
+    public Person(String name, int age, String gender){
+        this.name = "Alex";
+        this.age = 22;
+        this.gender = "Male";
+    }
+}
+
+_______________________________________________________
+
+By using constructors, we are making users pass instance variable value while creating an object for the class.
+
+Constructor overloading
+
+We can create multiple constructors with less parameters based on requirement
+We can use "this" Keyword to call another class constructor from the same class.
+
+Example:
+
+class MyClass{
+    public MyClass() {
+        this("one", "two", "three", "four", "five");
+    }
+
+    public MyClass(String s1, String s2, String s3, String s4, String s5){
+        //statements
+    }
+
+    public MyClass ( String s1, String s2, String s3){
+        //statements
+    }
+}
+
+
+when "this" keyword is used, it will call the 2nd function with 5 parameters, not the one with 3 parameters.
+
+_______________________________________________________
+
+Super() : will call super class constructor
+this() :  will call constructor within a same class
+this() without any arguments will call default constructor, with many parameters will call it's respective
+
+_______________________________________________________
+
+Rules:
+
+1. Constructors can use any access modifier
+2. Constructors must have same name as Class name
+3. Constructors must not have return type
+4. The only way to call a constructor is from another constructor using this() or super()
+5. All classes will have constructors, even abstract class. Interfaces do not have constructors.
+6. We cannot make a call to instance method or access instance variable until, after the super constructor runs.
+7. If there are no constructors in our class, compiler will create a default constructor. It was always be a no argument constructor.
+8. If we create our constructor (argument / no argument), compiler will not create one for us.
+9. If a parent class do not have a constructor, then we should call parent constructor by super() with proper arguments.
+
+_______________________________________________________
+
+Example code:
+
+class Animal{
+    String name;
+    public Animal(String name){
+        this.name = name;
+    }
+    public Animal(){
+        name = "Unknown Animal";
+    }
+}
+
+public class Exercise {
+
+    public static void main(String[] args) {
+        System.out.println(printResult());
+    }
+    public static String printResult(){
+        // Write your logic here to return expected patter as string
+        Animal animal_1 = new Animal("Tiger");
+        Animal animal_2 = new Animal();
+
+        return "animal_1 name : "+animal_1.name+" | "+"animal_2 name : "+animal_2.name;
+    }
+}
+
+_______________________________________________________
+

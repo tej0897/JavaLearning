@@ -1,0 +1,73 @@
+Programming in Java:
+
+Functional Programming in Java.
+__________________________________________________________
+
+Imperative vs Declarative.
+
+Example: Sum of 100 numbers from 0 to 100
+
+Imperative is How-Style-Of-Programming
+Declarative is What-Style-Of-Programming
+
+public class ImperativeVsDeclarativeExample {
+
+    public static void main(String[] args) {
+        int sum = 0;
+        for(int i=0; i<=100; i++){
+            sum += i;
+        }
+        System.out.println("Sum using Imperative Method is :: " +sum);
+
+        int anotherSum = IntStream.rangeClosed(1,100).sum();
+        System.out.println("Sum using Declarative Method is :: " +anotherSum);
+    }
+}
+
+__________________________________________________________
+
+Imperative:
+
+We are mutating variable in order to get the result. the mutating Variable is sum, as it keeps changing.
+We might get unexpected results when we try to run this in multi-threaded code.
+
+Declarative:
+
+It performs internal iteration instead of external iteration.
+Works the same in multi-threaded environment.
+
+If we want to run this code in multi-thread environment, just call parallel()
+ex: IntStream.rangeClosed(0,100).parallel().sum();
+
+It splits the values, performs the summation and gives the value.
+__________________________________________________________
+
+Example 2: Removing duplicates from a list of integers.
+
+public class ImperativeVsDeclarativeExample2 {
+    public static void main(String[] args) {
+        List<Integer> integerList = Arrays.asList(1,2,2,3,3,4,5,5,6,7,7,7,8,8,9);
+
+        // Imperative Method
+
+        List<Integer> uniqueList = new ArrayList<>();
+
+        for (Integer integer: integerList){
+            if(!uniqueList.contains(integer)){
+                uniqueList.add(integer);
+            }
+        }
+        System.out.println(uniqueList);
+
+        //Declarative Method
+
+        List<Integer> anotherList = integerList.stream()
+                .distinct()
+                .collect(Collectors.toList());
+        System.out.println(anotherList);
+    }
+}
+
+__________________________________________________________
+
+

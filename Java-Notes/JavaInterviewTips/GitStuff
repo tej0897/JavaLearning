@@ -1,0 +1,95 @@
+Open git, create repository, copy repository link.
+
+Create a local file in any drive.
+Right click and select "GIT BASH HERE"
+
+git clone "PATH_OF_REPOSITORY"
+
+if we commit, work is saved
+if we push, it pushes it to the online repository.
+
+touch build.gradle -> to create gradle type file
+
+________________________________________________________
+
+
+
+Created GIT repository
+Created build.gradle and settings.gradle via git bash using above mentioned commands.
+Opened Spring Initilizr and created guest-service build with required dependencies
+Created GuestDB schema in MySQL Workbench.
+Servers are online via port 3306
+
+Idea here is,
+
+We give user Guest-application module for them to access.
+We use Guest-service to maintain, code and stuff
+
+instead of using different IDEs for this purpose, we are using single one.
+
+settings.gradle to connect both Application and Service modules.
+
+We gave " include 'guest-service' " in settings.gradle for joining both.
+
+________________________________________________________
+
+(JPA BUDDY) plugin in IntelliJ (press shift twice, search plugins and search for the needed plugin)
+helps in connecting Java to table data.
+i.e. tables have data which needs corresponding classes
+JPA helps in mapping those.
+________________________________________________________
+
+in application.properties:
+
+spring.application.name=guest-service
+server.port=8081
+
+# If guest schema is not there, create it using mySQL workbench
+spring.datasource.url=jdbc:mysql://localhost:3306/hotel-management              -> same schema should be created in SQL workbench
+spring.datasource.username=root
+spring.datasource.password=password
+
+# To get formatted sql queries and to get values passed to prepared statements
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.use_sql_comments=true
+
+#Security                                                                       -> we used security dependency while downloading build, this block disables security check
+# To set static password for default user 'user'
+# spring.security.user.password=password
+# To disable spring security
+spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+________________________________________________________
+
+
+How we take tickets / stories and work on them
+
+First, stories will be created on JIRA from manager
+We select stories on which we work on.
+
+In JIRA, we get an option to branch using BitBucket
+
+Select the story, click on branch, it'll ask for which app / Dev code to branch
+
+We select the correct one, it'll generate the Branch ID and asks us to "Check-out"
+
+Post which, we get the cloned code of main Dev file.
+
+Make changes, fix code. add / modify changes
+
+commit those changes and push them.
+
+When we push and refresh the page, it'll ask us if we want to create a Pull request
+
+Click on yes, code will be transferred to auto / default approvers.
+Once they approve and all the test cases are passed, two people will manually check the code for issues and then approves.
+
+Post which, we can "Merge" the code.
+
+The Merged code will be the new Dev code.
+
+And the cycle repeats.
+
+________________________________________________________

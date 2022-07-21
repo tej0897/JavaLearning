@@ -1,0 +1,120 @@
+Programing in Java:
+
+Streams:
+
+Main purpose is to perform operations on Collections.
+Because we use collections everywhere practically.
+
+Parallel Operations are easy to perform with Stream APIs.
+
+While using ParallelStream, the result will be the same, but under the hood, all the lines will be executes in the same time.
+__________________________________________________________
+
+Stream is a sequence of elements which can be created out of
+a collections such as List or Arrays or any kind of I/O resources
+and etc.,
+
+Stream creation:
+
+List<String> names = Arrays.asList("Adam","Dan","Jenny");
+
+names.stream();      // creates stream.
+
+
+Stream operations can be performed either sequentially or parallel.
+
+names.parallelStream();         // creates a parallel stream
+__________________________________________________________
+
+Example in code:
+
+
+Map<String,List<String>> studentMap = StudentDataBase.getAllStudents()
+                .stream()               //.parallelStream don't forget.
+                .filter(gpaPredicate) // Stream<Student>
+                .filter(gradePredicate)     //more filters.
+                .collect(Collectors.toMap(Student::getName ,Student::getActivities ));
+
+
+Stream send data in stream
+filter is used for filtering based on conditions, we can use Predicate Interface for filtering purposes.
+Collect() is used to collect the data post filtering
+here, we are collecting data as maps, so collect(Collectors.toMap(a,b));
+
+__________________________________________________________
+
+How Stream API works:
+
+Intermediate Operations are the ones which are executed before start and end of stream()
+ex: filter() can be an intermediate Operation before displaying it
+
+Terminal Operation: It is the one that ends the steam(), last process / method in stream()
+ex: collect() can be a Terminal Operation, to collect all the data before displaying them.
+
+collect method converts the stream into the output in which we want to see.
+
+collector method starts the stream pipeline, cause unless the terminal method is invoked, no intermediate operations will be invoked.
+
+__________________________________________________________
+
+Collections and Streams:
+
+We can add or modify data at anytime in Collectors
+We cannot add or modify data in stream. It is fixed data set.
+
+Elements can be accessed in any order in Collectors. Ex: List -> list.get(4)        // to get 5th element
+Elements in Stream can be accessed only in sequence.
+
+Collections can be traversed 'n' number of times.
+Streams can be traversed only once. If we try and run the same stream again, it'll throw an exception.
+
+Iteration happens externally in collections
+Iteration happens internally in Streams
+__________________________________________________________
+
+How to debug Stream Operations?
+
+.peek() -> takes one argument which is of type "Consumer"
+
+combining with SOUT, we can see the program flow, how stream flows to next method post filtration.
+
+Example:
+
+
+.stream()
+    .filter(gpaPredicate)
+        .peak( s -> {
+                SOUT(s);
+        });
+
+    .filter(gradePredicate)
+        .peak( s -> {
+                SOUT(s);
+        });
+
+    .collect(Collectors.toMap(Student::getName ,Student::getActivities ));
+        .peak( s -> {
+                SOUT(s);
+        });
+
+
+Stream passes the elements one by one,
+i.e.
+stream()
+filter1()
+filter2()
+collect()
+
+stream()
+filter1()       > fails
+
+stream()
+filter1()
+filter2()
+collect()
+
+in this order.
+__________________________________________________________
+
+
+

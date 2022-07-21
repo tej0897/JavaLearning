@@ -1,0 +1,36 @@
+Create a simple Spring Boot Project.
+
+Go to spring initialzr and select project details.
+Group ID and Artifact are like class name and package name
+
+Add dependencies based on requirement.
+For web based applications, we add "Spring Web" dependency.
+Similarly, we add "Spring Boot Dev Tool" to add other dependencies.
+
+^^^
+For Web applications and Restful APIs, we use Spring Web dependency.
+
+Generate zip file, extract and open it in IDE.
+_______________________________________________________
+
+under Src/main/Java, open the src file.
+
+run the file, TomCat is started on port 8080.
+
+Building a simple RESTful API.
+______________________________
+
+1. create a Controller class.
+
+//under controller class.
+
+We are creating a RestAPI, so add @RestController.
+
+// whenever we use "@-annotations", things starts getting imported.
+
+map URL:
+
+use @RequestMapping for setting URL
+
+syntax: @RequestMapping("/courses")
+

@@ -1,0 +1,164 @@
+Programming in Java
+
+Exception handling.
+
+Two types:
+Compile time exception (checked exceptions)
+Runtime exceptions (unchecked exceptions)
+
+Compile time exceptions: Errors that come during compiling.
+Ex. Calling a method that does not exist.
+
+Runtime errors: error that makes code break during the runtime.
+
+Exceptions is an event when your program flow stops.
+When an exception occurs, our program flow stops and displays an error which is not understandable by the user.
+
+We can catch those errors and display a message to the user with details on why the program crashed.
+_______________________________________________________
+
+package exceptionHandling;
+
+public class ExceptionExample {
+    public static void main(String[] args) {
+        try {
+            int userChoice = Integer.parseInt("3");
+            String [] fruits = {"Apple","Banana", "Mangoes", "Oranges"};
+            System.out.println("User chose the fruit : " +fruits[userChoice-1]);
+        } catch (NumberFormatException e){
+            System.out.println("Please enter valid input");
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Please enter numbers between 1 and 4");
+        } catch (Exception e){
+            System.out.println("Please enter valid input");
+        }
+    }
+}
+_______________________________________________________
+
+1. find possibilities where program could throw error or cause an issue.
+2. put the code in TRY block, if it works, it works.
+3. Under catch block, add all the possible error things that could come up
+in the above example, the user can enter string as an input. So We are adding numberFormatException.
+User can pass values that might exceed array index. so add ArrayIndexOutOfBoundsException so it'll catch that particular instance.
+4. Add Exception catch in general to catch any other possible exceptions.
+
+_______________________________________________________
+
+Exception Hierarchy:
+
+Order of catch block is important.
+Since the general one, i.e. Exception catch is capable of catching even NumberFormatException and ArrayIndexOutOfBoundsException,
+if we write it on top of exception, the other two becomes irrelevant as the first Exception is capable of catching.
+
+Always find the most specific exception.
+Java has more than 20 catch exceptions.
+
+Generic exception should always stay at the end. just in case if we miss any.
+
+_______________________________________________________
+
+Finally block:
+
+If the code breaks and we have to clean up certain things in the code, we cannot do it in catch block
+Cleaning up things like closing / finishing up files used, closing Network and other clean-up activity. etc
+
+since we might write multiple catch blocks, code becomes messy.
+So we use Finally block to achieve this goal.
+
+It'll run even if the exception is thrown or not.
+It'll execute even if the try block has "Return"
+
+we can have only try and finally
+or
+try and catch
+_______________________________________________________
+
+Propagating uncaught exceptions:
+
+If we are calling a method, let's say
+a -> b
+b -> c
+
+c has some exceptions.
+
+order of methods in stack will be a->b->c where c is on top
+
+after the method runs, if c has exception, it'll fall to b.
+
+If b does not handle exceptions which was observed in c, it'll go to a
+
+A must handle exceptions of c and exception of b, if there are any.
+
+i.e. if called method does not handle exceptions, then calling method should do it
+_______________________________________________________
+
+throw and throws in Exception.
+
+We can define or custom Exceptions using this.
+Let's say if we want an exception when the user gives input as 1,
+We can write it using throw(s)
+
+Syntax: Condition {
+    throw new EXCEPTIONNAME("Statements");
+}
+
+if(userInput == 1){
+    throw new NumberFormatException("1 is not a valid number");
+}
+
+_______________________________________________________
+
+using throws, we can assign multiple exceptions in one shot.
+
+Ex.
+
+package exceptionHandling;
+
+public class ExceptionExample {
+    public static void main(String[] args) {
+        try {
+            doSomething();
+        } catch (NumberFormatException e){
+            System.out.println("Please enter valid input");
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Please enter numbers between 1 and 4");
+        } catch (Exception e){
+            System.out.println("Something went wrong");
+        }
+    }
+
+    public static void doSomething() throws ArrayIndexOutOfBoundsException, NumberFormatException{
+        int userChoice = Integer.parseInt("0");
+        String [] fruits = {"Apple","Banana", "Mangoes", "Oranges"};
+        System.out.println("User chose the fruit : " +fruits[userChoice-1]);
+    }
+}
+
+_______________________________________________________
+
+Two rules for creating Custom Exceptions:
+
+1. User-defined exception class must extend Exception class.
+2. The exception is thrown using "Throw" keyword. If we throw an exception, we must handle the exception in code.
+
+Ex.
+
+public class MyException extends Exception{
+    String message;
+    MyExecption(String message){
+        this.message = message;
+    }
+}
+
+// in code throw exception
+
+try{
+        doSomething();
+        throw new MyException("My Message");
+
+    } catch (MyException e){
+    SOUT("This is my exception");
+}
+
+_______________________________________________________

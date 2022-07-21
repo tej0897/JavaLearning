@@ -1,0 +1,300 @@
+Programming in Java
+
+Inheritance
+
+Derive a class from a super / parent class.
+Shares attributes and methods.
+
+Derived class can have it's own properties along with parent class' features
+
+Human (parent / super class)
+Artists - Musicians (sub class)
+_______________________________________________________
+
+Need for inheritance:
+Re-usability
+Polymorphism
+
+Re-usability makes us write only the unique features of sub-class.
+Common attributes can be defined under parent class.
+
+Polymorphism is the ability to take different forms.
+
+_______________________________________________________
+
+Ex:
+
+both the src files are in same package
+
+>> Humans file:
+
+package inheritance;
+
+public class Humans {
+    int age;
+    String name;
+    String gender;
+
+    public void sleep(){
+        System.out.println(name + " sleeps for less than 7 hours");
+    }
+
+    public void walk(){
+        System.out.println(name + " walks like this");
+    }
+}
+_______________________________________________________
+
+>> Artist file:
+
+package inheritance;
+
+public class Artists extends Humans{
+    public void paint(){
+        System.out.println(name+ " is going to paint man");
+    }
+
+    public static void main(String[] args) {
+        Artists a = new Artists();
+        a.age = 22;
+        a.name = "Tej";
+        a.gender = "Male";
+        a.paint();
+        a.sleep();
+    }
+
+}
+
+_______________________________________________________
+
+This is Method Overriding.
+
+Lets say speak method is common for all and we define it in Parent class.
+In case we need a child class who speaks different, or
+a derived class who speaks different, we can define it in child class.
+it will not affect the parent class' speak()
+Musician will have special feature.
+So, the compiler will see the child class' methods first, if not found,
+goes and sees the parent class for the methods defined.
+
+
+_______________________________________________________
+
+We can create objects with reference of super class.
+
+Ex. Human a = new Artist();         // we can create artists from human
+    Artist b = new Human();         // Invalid
+
+When we do this, method called should be available in super class.
+Let's say we have 2 methods in Artists class, 3 in Humans class.
+
+We create an object using Super class as reference
+
+in that case, if we call methods from artists class, then it will throw error.
+We can use only the 3 methods defined in Humans class since object is created with Human as reference.
+
+^^^
+If there are common methods / method overriding, then the compiler will take the child class' method first
+
+If there is no method in child class, it will go for parent class.
+_______________________________________________________
+
+
+
+Ex for polymorphism:
+
+package inheritance;
+
+public class tempHuman {
+    public static void letsWalk(Humans h){
+        h.walk();
+    }
+
+    public static void main(String[] args) {
+        Artists a = new Artists();
+        a.name = "Tej";
+
+        Musicians b = new Musicians();
+        b.name = "Vivek";
+
+        letsWalk(a);
+        letsWalk(b);
+    }
+}
+
+_______________________________________________________
+
+
+IS-A and HAS-A relationship.
+
+Is-A relationship is implemented in Inheritance
+
+Example: Artist "Is-A" Human, Musician "Is-A" Human, Human "Is-A" Object
+_______________________________________________________
+
+Has-A Relationship:
+
+Musician is a Human, Musician "has-A" keyboard.
+
+package inheritance;
+
+public class Musicians extends Humans {
+    public void playKeyboard(){
+        System.out.println(name + " plays keyboard since when he was a kid");
+    }
+
+    Keyboard test = new Keyboard();
+
+    public static void main(String[] args) {
+        Musicians a = new Musicians();
+        a.name = "Vivek";
+        a.age = 23;
+        a.gender = "Male";
+        a.playKeyboard();
+        a.test.playSomething();
+    }
+}
+
+/// Keyboard class:
+
+package inheritance;
+
+public class Keyboard {
+    public void playSomething(){
+        System.out.println("*** Plays something ***");
+    }
+}
+_______________________________________________________
+
+A class cannot be extended to two classes.
+
+A derived class can have only one parent class
+Java does not support multiple inheritance.
+
+Multiple inheritance is a child class having more than one parent class.
+
+If we make any class / variables / methods as FINAL, we cannot override it or change it
+If we try to access it, it throws error.
+_______________________________________________________
+
+Interface:
+
+These are similar to classes.
+Classes are blueprint to create objects.
+Interfaces are blueprint for classes.
+
+Interfaces contains abstract methods.
+Abstract methods are methods with no body (or) without method definition.
+
+It just says what class must do, not how to do.
+
+Example:
+The parent class will have abstract methods like walk(), breathe(), think() etc.
+
+the sub class must define all those functions mentioned in the parent class.
+
+^^^
+A class can inherit attribute and methods from interface or a class.
+
+Interfaces contain only abstract methods.
+A class who inherits from interface must provide implementation for the abstract methods.
+
+All the attributes in interface are Public, Static and final.
+
+So,
+public interface Human {
+    int noOfEyes = 2;   -> public static final int noOfEyes = 2;
+}
+
+_______________________________________________________
+
+methods in interface:
+
+void eat();     ->      public abstract void eat();
+
+Syntax for interface:
+
+interface INTERFACE_NAME {
+    //constant fields
+    //methods that abstract
+}
+
+^^^
+An interface can not have constructor
+An interface can be implemented, not extended.
+
+
+public class Man extends Human (if human is a class)
+public class Man implements Human (if human is a interface)
+
+public class Man extends Human (it is not possible if humans is a class)
+
+_______________________________________________________
+
+Interfaces:
+
+All interfaces variables are public, final and static
+_______________________________________________________
+
+All methods in interfaces are public and abstract
+(except for default methods)
+_______________________________________________________
+
+If it is a default method, then it must be defined in interface.(exception)
+
+Interfaces supports multiple inheritance. To select which method must be selected, we should use ClassToChooseFrom.super.MethodName();
+ex.
+
+public void speak(){
+    Human.super.speak();
+}
+
+then use speak() to get method defined in Human class.
+
+if we want method defined at humanTemp class, then do the following:
+
+public void speak(){
+    humanTemp.super.speak();
+}
+
+_______________________________________________________
+
+Interface methods must not be static.
+_______________________________________________________
+
+Interface methods cannot be marked final, Strictfp, native
+_______________________________________________________
+
+An interface can extend one or more other interfaces.
+An interface only extends another interface. It cannot extend classes.
+_______________________________________________________
+
+Abstract classes.
+
+It has 50% class behavior
+It has 50% interface behavior
+
+
+In Java, any method without body must be defined with abstract.
+
+Ex.
+
+public abstract class Human{
+
+    public abstract void think();
+
+    public void walk(){
+        SOUT("Hello World");
+    }
+}
+
+An abstract class can have abstract methods as well as non-abstract methods.
+
+If any method in a class is abstract, then the class should be abstract.
+We must mark it as abstract class.
+
+We cannot create object for an abstract class.
+
+_______________________________________________________
+
+

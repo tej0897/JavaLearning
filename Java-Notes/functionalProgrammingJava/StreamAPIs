@@ -1,0 +1,308 @@
+Programming in Java
+
+Stream APIs : map()
+
+Map in streams are used to change stream from one type to another.
+map in streams is different from MAP in collections.
+
+map() accepts a function. i.e. it receives an input, sends an output.
+
+code in StreamsMapExample:
+
+2 uses:
+> used to convert stream from one type to another.
+> used to perform operations on stream.
+
+__________________________________________________________
+
+Stream API : flatMap()
+
+Converts(Transforms) one type to another as like map() method
+
+Used in the context of Stream where each element in the stream represents multiple elements.
+
+Example:
+• Each Stream element represents multiple elements.
+• Stream<List>
+• Steam<Arrays>
+
+Example: StreamFlatMapExample
+
+
+Let's say we have student details, like name, grade, activities
+name - string
+grade - Integer
+activities - <list(strings)>
+
+so, when we try to modify / change data of activities, we get complaint from the compiler.
+that is when we use flatMap, to flat-en or remove the list so we can get the string data
+
+Ex:
+getAllStudents().stream()   // collects all data
+.map(Student :: getActivities)  //Stream<List<String>>
+.flatMap(List :: stream)        //stream<String>
+.collect(toList())
+__________________________________________________________
+
+distinct() , count(), sorted():
+
+distinct – Returns a stream with unique elements
+count – Returns a long with the total no of elements in the Stream.
+sorted - Sort the elements in the stream (alphabetical order)
+
+__________________________________________________________
+
+Customized sort using Comparator
+
+There are two sorted methods in streams
+one that takes input and other that does not.
+
+sorted takes comparator as input.
+
+
+StudentDatabase.getAlStudents()
+.stream()
+.sorted(Comparator.comparing(Student::getName))
+.collect(toList());
+
+
+//comparing takes a function as input.
+
+.reversed() is used to get the opposite of sorting
+usually sorting happens in ascending to descending, to reverse that use reversed()
+__________________________________________________________
+
+Stream Operation - filter()
+
+Input to the filter is a Predicate Functional Interface.
+
+Normal methods to filter things.
+
+Ex:
+
+StudentDatabase.getStudentDetails()
+.stream()
+.filter( student -> student.getGender().equalsTo("Female"))
+.filter( student -> student.getGrade() >= 3)
+.collect(toList());
+
+__________________________________________________________
+
+Reduce() - part-1
+
+This is a terminal Operation. The other one is Collect().
+
+Used to reduce the contents of the stream to a single value.
+
+ex:
+find sum of all the elements in the stream
+Multiplication of all the elements in the stream
+Find highest in the stream.
+
+
+Takes two Parameters:
+Default or initial Value.
+Binary Operator :takes two inputs of same type and returns one output. All of the same type.
+
+
+Ex:
+
+List<Integer> integerList = Arrays.asList(1,2,3,4,5);
+
+integerList.stream()
+    // values passed
+        //1
+        //2
+        //3
+        //4
+
+    //a = 1, b = 1 (from stream)    result 1 is returned
+    // a = 1, b = 2 (from stream)   result 2 is returned
+    .
+    .
+    .
+    .reduce(1, (a,b) -> a*b);
+
+in this case, if we pass the initial value as 0, the result will be zero, as initial multiplication happens with initial parameter.
+__________________________________________________________
+
+If we want to apply reduce without initial parameter, we can, using "optional"
+
+change the return type to Optional<Integer> while creating method.
+
+create a variable in main using the following:
+
+Optional<Integer> result = performMultiplicatonWithoutIdentity(integerList);
+
+SOUT(result.get())  -> to get the actual value
+SOUT(result.isPresent()) -> to check if the value is there. Returns Boolean value.
+
+We can check if the Optional has any value by using isPresent()
+
+If we try to perform operations like get() on empty list, we get an exception.
+
+So, use if condition, if isPresent(): then get()
+__________________________________________________________
+
+
+Reduce() - Part 2:
+
+// useCase, get highest GPA in Student collection:
+
+StudentDatabase.getStudentlist()
+    .stream()
+    .reduce( (a,b) -> a.getGpa() > b.getGpa() ? a : b);
+
+    code in StreamsReduceExample
+
+__________________________________________________________
+
+Stream Operations - Map + Filter + Reduce Pattern
+
+UseCase:
+Total number of noteBooks students are using.
+
+StudentDataBase.getStudentList()
+    .stream()                   // stream<Students>
+    .map(Student::getNotebook)  // Stream<Integers>
+    .reduce(0, (a,b) -> a + b);
+
+
+(or)
+
+
+Using Integer methods:
+
+StudentDatabase.getStudentList()
+    .stream()
+    .map(Student::notebooks)
+    .reduce(0, Integer::Sum);
+
+
+There is no multiplication for Integer method.
+
+further enhancements:
+
+Add filters for female and Grade > 3
+__________________________________________________________
+
+max using reduce() function:
+
+Performing min and max of Integers:
+
+If we set a default value as 0, then when we pass empty list, it'll return 0, which is wrong.
+
+Always avoid assigning default value while calculating min or max.
+
+therefore, use Optional.
+
+Check code for better understanding.
+
+__________________________________________________________
+
+min ()
+
+same what was done in max, but if we use identity element here, we will get 0 as min
+since we will initiate that to be the starting point.
+
+so always use Optional while calculating max or min
+__________________________________________________________
+
+Stream API : limit() and skip()
+• These two function helps to create a sub-stream.
+• limit(n) – limits the “n” numbers of elements to be processed
+in the stream.
+• skip(n) – skips the “n” number of elements from the stream.
+
+
+whatever we give the value in limit, it will process only those number of elements
+ex: if we set limit to 5, it will stream 5 elements even if there are 1000 elements in the stream.
+
+skip : skips the number of elements from the stream.
+Ex: 10 elements in stream, if we give skip(3), it'll skip the first 3 elements.
+
+Code check StreamsLimitSkipExample.
+__________________________________________________________
+
+allMatch(), anyMatch() and noneMatch()
+
+Takes Predicate as input and returns Boolean as Output.
+
+Used to check if any particular element is present in the stream and such activities.
+
+AnyMatch()- Returns true if any one of the element matches the predicate. else False.
+AllMatch() - Returns true if all the element in the stream matches the predicate, otherwise false.
+noneMatch() – Just opposite to allMatch(). Returns true if none of the element in the stream matches the predicate, otherwise false
+__________________________________________________________
+
+Code:
+
+
+All Match:
+
+Pass students list as input stream
+when we give
+.stream()
+.allMatch(student -> student.getGpa >= 3.9);
+
+// not all students have GPA above 3.9. So it will return False.
+
+__________________________________________________________
+
+Streams API : findFirst() and findAny()
+
+• Used to find an element in the stream.
+• Both the functions returns the result of type Optional.
+
+• findFirst() – Returns first element in the stream.
+• findAny() – Returns the first encountered element in the stream
+
+The only difference between these two is when using parallel stream
+
+When using parallel stream, if we use findFirst(), then we get first element encountered in any one of the parallel streams.
+findAny() is used to get the first element encountered in the stream.
+
+__________________________________________________________
+
+What is Short Circuiting ?
+
+Example 1:
+
+if(boolean1 && boolean2){
+
+}
+• If the first expression evaluates to false then the second expression
+wont even execute.
+
+
+Example 2:
+
+if(boolean1 || boolean2){
+ //body
+}
+• If the first expression evaluates to true then the second expression
+wont even execute.
+__________________________________________________________
+
+Short circuiting in Streams:
+
+limit()
+findFirst()
+findAny()
+
+anyMatch()
+allMatch()
+noneMatch()
+
+All these functions does not have to iterate the whole stream
+to evaluate the result
+__________________________________________________________
+
+
+
+
+
+
+
+
+

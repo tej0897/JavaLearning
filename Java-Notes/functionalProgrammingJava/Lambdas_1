@@ -1,0 +1,128 @@
+Functional Programming in Java
+
+Lambdas.
+
+Lambda is a function (method) without a name.
+Lambdas are also referred as Anonymous functions.
+
+It has method features like:
+Method parameters
+Method Body
+Return Type
+
+They are not tied to any class like regular methods.
+They can be assigned to a variable and passed around like a variable.
+__________________________________________________________
+
+Syntax:
+
+( )          ->           { }
+Lambda       Arrow        Lambda Body
+Input
+Parameters
+
+
+Input Parameters: Parameters can be passed.
+Arrow: Separated input parameters from method body.
+Lambda Body: Contains what lambda will do with the input parameters.
+
+__________________________________________________________
+
+Uses:
+Lambda is mainly used to implement Functional Interfaces (SAM).
+Single Abstract Method.
+
+If an Interface has only one Abstract method, then those interfaces are categorized as Functional Interfaces.
+
+All SAM interfaces are denoted with "@FunctionalInterface" annotation.
+
+__________________________________________________________
+
+Implementing Runnable using Lambda (and Legacy method):
+
+What is Runnable()?
+Runnable is an interface which has only one method inside it, run()
+It has no parameters. It does not take any input, does not provide any output.
+
+Idea of this interface is to work with the thread class.
+__________________________________________________________
+
+A lot of boiler plate code is reduce while implementing Lambda method.
+
+If we are writing single line code as Lambda body, then we do not even need curly braces.
+
+We cannot give multiple statements in single line, ex: () -> SOUT("OUT");SOUT("IN");        -> wrong, it'll throw Syntax error
+We have to use () -> {
+    SOUT("OUT");
+    SOUT("IN");
+};
+
+__________________________________________________________
+
+package FunctionalProgramming.Lambda;
+
+public class RunnableLambdaExample {
+
+    public static void main(String[] args) {
+
+        Runnable newRunnable = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Inside Run Method! using Legacy Method ");
+            }
+        };
+        new Thread(newRunnable).start();
+
+        Runnable LambdaRunnable1 = () -> {
+            System.out.println("Inside Run Method! using Lambda Method 1");
+        };
+        new Thread(LambdaRunnable1).start();
+
+        // ignore braces if we use single line command in Lambda:
+
+        Runnable LambdaRunnable2 = () -> System.out.println("Inside Run Method! using Lambda Method 2");
+        new Thread(LambdaRunnable2).start();
+
+        // passing the code directly to thread without Variable:
+
+        new Thread(() -> System.out.println("Inside Run Method! using Thread Method 3")).start();
+    }
+}
+
+__________________________________________________________
+
+Comparators using Lambda:
+
+
+package FunctionalProgramming.Lambda;
+
+import java.util.Comparator;
+
+public class ComparatorLambdaExample {
+    public static void main(String[] args) {
+
+        // Legacy Method:
+
+        Comparator <Integer> comparator = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1.compareTo(o2);
+            }
+        };
+        System.out.println("Result of comparator is : " +comparator.compare(3,2));
+
+        // using Lambdas:
+
+        Comparator <Integer> comparator1 = (Integer a, Integer b) ->  a.compareTo(b);
+        System.out.println("Result of comparator using Lambda is : " + comparator1.compare(3,4));
+
+        // we do not have to mention the type for the input parameters. It'll take from the Comparator type and assign it to the variables
+
+        Comparator <Integer> comparator2 = (a,b) -> a.compareTo(b);
+        System.out.println("Result of comparator using Lambda is : " +comparator2.compare(5,4));
+    }
+}
+
+__________________________________________________________
+
+

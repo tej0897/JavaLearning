@@ -1,0 +1,77 @@
+Programming in Java
+
+Static Members:
+
+Static members are those which belongs to the class and you can access these members without instantiating the class.
+The static keyword can be used with methods, fields, classes (inner/nested), blocks.
+
+Static members are for the class, not instances.
+They are created when the class is loaded.
+
+Static variable is common for all the variables in a class.
+Instance variable is for a particular instance of a class.
+
+Ex. Number of eyes can be a static variable for the "Person" class, since it is common for all the objects.
+
+Another example:
+
+Flight tickets.
+
+Number of tickets available is static variable.
+The tickets itself are instance variable.
+
+Code:
+
+Public class FlightTicket(){
+    public int seatNumber;
+    public static int availableSeats = 2;
+
+    PSVM(String [] args){
+        FlightTickets userOne = new FlightTickets();
+        FlightTickets userTwo = new FlightTickets();
+    }
+}
+
+_______________________________________________________
+
+Example code:
+
+package staticPkg;
+
+public class FlightTicket {
+    public int flightNumber;
+    public int seatNumber;
+    public String ticketType;
+    public int tickerID;
+
+    public static int availableSeats = 50;
+
+    public FlightTicket(int flightNumber, int seatNumber, String ticketType, int tickerID) {
+        this.flightNumber = flightNumber;
+        this.seatNumber = seatNumber;
+        this.ticketType = ticketType;
+        this.tickerID = tickerID;
+    }
+
+    public static void main(String[] args) {
+        FlightTicket ticket1 = new FlightTicket(1111, 24, "Business", 1221);
+        availableSeats--;
+        FlightTicket ticket2 = new FlightTicket(1112, 26, "Economy", 1222);
+        availableSeats--;
+        FlightTicket ticket3 = new FlightTicket(1113, 25, "Business", 1223);
+        availableSeats--;
+        System.out.println("Number of seats available now are: " +availableSeats);
+    }
+}
+
+
+here, all the attributes are unique / used as a instance variable for individual ticket numbers.
+whereas the number of seats available are same for all the tickets.
+
+_______________________________________________________
+
+A static member cannot access a non-static member and vice-versa.
+
+Static can be accessed directly by class name.
+They can be accessed without created objects.
+

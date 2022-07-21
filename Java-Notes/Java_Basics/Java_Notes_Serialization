@@ -1,0 +1,95 @@
+Programming in Java
+
+Serialization.
+
+A mechanism of writing an Object State into ByteStream.
+
+why?
+We cannot directly share Java Objects to other systems via Network.
+
+So, the objects must be converted into ByteStream.
+
+Object Serialization:
+Object can be represented as a sequence of Byte that includes object data, info on Object Type and type of data stored in that object.
+
+Once the object is serialized, it can be saved in DB or any other machine.
+
+It is platform independent.
+
+DeSerialization is the process of converting ByteStream into Java Objects.
+_______________________________________________________
+
+implement in code.
+
+1. import Java.io.*;
+2. create another class with few attributes.
+3. new class implements Serializable and import java.io.serializable
+4. in main, create an object
+5. FileOutputStream f = new FileOutputStream("objectName.ser"); //this object is converted to ByteStream
+6. ObjectOutputSteam out = new ObjectOutputStream(f);
+7. out.writeObject(ObjectName);
+8. close ObjectOutputSteam and FileOutputStream
+9. Surround them with Exception using IDLE
+_______________________________________________________
+This is for serialization.
+
+
+code:
+
+import java.io.*;
+public class Examples {
+    public static void main(String[] args) {
+        Cars polo = new Cars("VolsWagon","polo", 2020 );
+        try {
+            FileOutputStream file = new FileOutputStream("polo.ser");
+            ObjectOutputStream out = new ObjectOutputStream(file);
+            out.writeObject(polo);
+            file.close();
+            out.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Serialized Data is saved in polo.ser");
+    }
+}
+
+_______________________________________________________
+
+We will deSerialize polo.ser file.
+
+
+public class DeSerialization {
+    public static void main(String[] args) {
+        Cars polo = null;
+        try {
+            FileInputStream fileIn = new FileInputStream("polo.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            polo = (Cars) in.readObject();
+            in.close();
+            fileIn.close();
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        System.out.println(polo.modelName);
+    }
+}
+
+_______________________________________________________
+
+Things to remember while serializing the objects:
+
+1. If Parent class has implemented Serializable interface, then child class does not need to implement.
+Ex. in above case, Cars are serialized. Any class which extends Cars class need not implement serializable interface.
+
+2. Only non-static data members are serializable during Serialization process.
+
+3. Static data members and transient data members will not be Serialized during Serialization process.
+ex. in the above case, if ModelNumber is marked as Transient, then they cannot be serialized. They are marked to default value and serialized.
+Some sensitive data / unnecessary data can be marked as transient datatype and then the file can be shared over the network.
+_______________________________________________________
+
+
+

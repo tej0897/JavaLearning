@@ -1,0 +1,189 @@
+Functional Programming in Java
+
+A Functional Interface(SAM) is an interface that has exactly one abstract method.
+
+New Functional Interfaces in Java:
+Consumer – BiConsumer
+Predicate - BiPredicate
+Function – BiFunction, UnaryOperator, BinaryOperator
+Supplier
+
+__________________________________________________________
+
+Consumable Functional Interface:
+
+Function of this consume() is to accept an input and perform some operations on this input.
+
+.accept: method accepts input and does operation.
+
+Example:
+
+public class ConsumableExample {
+
+    public static void main(String[] args) {
+
+        Consumer<String> example = (s) -> System.out.println(s.toUpperCase());
+        example.accept("hello world");
+    }
+}
+__________________________________________________________
+
+"forEach" and "andThen" usage:
+
+Concept of using andThen() for chaining purposes in called "CONSUMER-CHAINING"
+
+    public static void printNameAndActivity() {
+
+        Consumer <Student> printNames = (StudentNameInput) -> System.out.println(StudentNameInput.getName());
+        Consumer <Student> printActivities = (StudentActInput) -> System.out.println(StudentActInput.getActivities());
+        List <Student> studentList = StudentDataBase.getAllStudents();
+        studentList.forEach(printNames.andThen(printActivities));
+    }
+
+
+printing names and activities.
+1. creating a list names studentList from StudentDatabase
+2. Using Consumer of type Student and assigning the name
+3. Using Consumer, assigning the activities of student
+4. using forEach as iteration mechanism.
+5. forEach name (printing happens) andThen (printing of activities happen)
+
+__________________________________________________________
+
+BiConsumer Functional Interface:
+
+Accepts two inputs and perform some operations on these inputs.
+
+public class BiConsumerExample {
+    public static void main(String[] args) {
+
+        BiConsumer<String, String>  biConsumer = (a,b) -> {
+            System.out.println("The value of a: " + a +"\nThe value of b: " +b);
+        };
+
+        biConsumer.accept("Hello", "World");
+
+        BiConsumer<Integer, Integer> biConsumer1 = (a,b) -> {
+            System.out.println("Multiplication is : "+a * b);
+        };
+
+        BiConsumer<Integer, Integer> biConsumer2 = (a,b) -> {
+            System.out.println("Division is : "+a / b);
+        };
+
+        biConsumer1.andThen(biConsumer2).accept(10,5);
+    }
+}
+
+
+Here, we are using andThen to perform multiple BiConsumer interfaces to perform multiplication and Division.
+.accept() is used to give inputs.
+__________________________________________________________
+
+// to print names and activities using BiConsumer.
+
+    public static void getNamesAndActivities(){
+        BiConsumer <String, List<String>> biConsumer = (name, activity) ->
+                    System.out.println("Name: " +name+ "\n Activities:" +activity);
+
+        List <Student> studentList = StudentDataBase.getAllStudents();
+
+        studentList.forEach( student -> biConsumer.accept(student.getName(),student.getActivities()));
+    }
+
+
+__________________________________________________________
+
+Predicate - Functional Interface - Part 1
+
+Accepts one Input, performs operation, returns boolean value.
+Performs And(), Or() and Negate(), isEquals()
+
+Boolean test(t);
+
+// to check if number is odd or even:
+
+public class PredicateExample {
+    public static void main(String[] args) {
+
+        Predicate<Integer> example = (number) -> { return number % 2==0; };
+        System.out.println(example.test(8));
+
+        Predicate<Integer> tester = (number) -> number % 2==0;
+        System.out.println(tester.test(8));             // return statement for single line in lambda, remove braces and remove word.
+    }
+}
+
+// advantage is code re-usability
+// use negate to print the opposite of the conditions, using else loop.
+
+Ex:
+if (p1.and(p2).negate().test(student)){
+                System.out.println(student.getName());
+            }
+            else {
+                System.out.println(student.getName());
+
+__________________________________________________________
+
+Combining Predicate + Consumer
+
+we are using both Predicate and Consumer to print Student's name and Activities with the following filter.
+
+Grade > 3
+GPA > 3.9
+
+code in intelliJ
+__________________________________________________________
+
+Bi-Predicate
+
+All the features are the same.
+Inputs given is 2, returns boolean as result.
+Has add, or, negate as methods.
+
+    static Predicate <Student> p1 = (p) -> p.getGradeLevel() >= 3;
+    static Predicate <Student> p2 = (p) -> p.getGpa() >= 3.9;
+
+    (or)
+
+    BiPredicate <Integer, Double> biPredicate = (grade, GPA) -> grade>3 && GPA>3.9);
+
+    While checking:
+
+    if(biPredicate.test(student.getGrade(), student.getGPA())){
+        doSomething
+    }
+
+__________________________________________________________
+
+Function Interface- Part 1
+
+One abstract method: apply()
+Default methods: compose() and andThen()
+
+Functions take one input and returns output.
+Consume does not return, Predicate returns Boolean Value.
+
+
+Syntax:
+    Function<inputType, OutputType> functionName = (name) -> name.toUpperCase();
+
+Difference between andThen and compose methods.
+
+andThen performs / executes the functions in the order it is mentioned.
+compose : executes the first parameter function that is being passed to the compose function and then it executes the outer-function.
+
+Ex:
+static Function<String, String> function = (a) -> a.toUpperCase();
+static Function<String,String> addSomething = (a) -> a.toUpperCase().concat(" hehe !!!!!!!!");
+
+        System.out.println("Result of AndThen is : " + function.andThen(addSomething).apply("Hello World"));
+        System.out.println("Result of compose is : " + function.compose(addSomething).apply("Hello tej "));
+
+Output:
+Result of AndThen is : HELLO WORLD hehe !!!!!!!!
+Result of compose is : HELLO TEJ  HEHE !!!!!!!!
+__________________________________________________________
+
+

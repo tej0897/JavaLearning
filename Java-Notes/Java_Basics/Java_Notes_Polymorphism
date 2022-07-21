@@ -1,0 +1,213 @@
+Programming in Java
+
+Polymorphism.
+
+Two types.
+
+1. Run-Time Polymorphism
+2. Compile-Time Polymorphism
+
+
+Single interface, multiple behavior.
+Ex. gear liver, same stick, can use it to go forward and backward.
+
+Code example:
+
+Animal is parent class, dog and cat are sub classes
+Walk() is written in Animal, which will be inherited to dog and cat
+
+If we feel the cat walks differently, we can override the original walk()
+by writing walk() in cat Class.
+
+So, the walk() is same, but acts differently when used in Dog / animal
+and when we override it, like in cat Class.
+
+this concept is polymorphism.
+
+_______________________________________________________
+
+RunTime Polymorphism.
+
+1. Method Overriding (runtime poly)
+2. Compile-time Overriding.
+example: from above. cat walk() is overridden
+
+a. The argument list must exactly match as the overridden method.
+b. The return type must be same or sub-type of the return type declared in the overridden method in superclass.
+c. The access level cannot be more restrictive than the overridden methods.
+d. Instance methods can be overridden only if they are inherited by the subclass.
+e. The overriding method can throw any unchecked exception.
+f. The overriding method must not throw checked exception that are new or broader than those declared by overridden method.
+g. We cannot override a method marked as static
+h. We cannot override a method marked as final.
+
+_______________________________________________________
+
+Main Example:
+
+Main Class:
+
+Animal.java
+
+
+package polymorphism;
+
+public abstract class Animal {
+    int maxSpeedOfAnimal;
+
+    public int getMaxSpeedOfAnimal() {
+        return maxSpeedOfAnimal;
+    }
+
+    public void setMaxSpeedOfAnimal(int maxSpeedOfAnimal) {
+        this.maxSpeedOfAnimal = maxSpeedOfAnimal;
+    }
+
+    public abstract void eat();
+    public abstract void run();
+}
+
+_______________________________________________________
+
+inherited class 1 - WildAnimal
+
+package polymorphism;
+
+public class WildAnimal extends Animal{
+    @Override
+    public void eat() {
+        System.out.println("I eat meat");
+    }
+
+    @Override
+    public void run() {
+        System.out.println("I run at speed " + getMaxSpeedOfAnimal() + " KMPH");
+    }
+}
+
+_______________________________________________________
+
+inherited class 2 - DomesticAnimal
+
+package polymorphism;
+
+public class DomesticAnimal extends Animal{
+    @Override
+    public void eat() {
+        System.out.println("I drink milk");
+    }
+
+    @Override
+    public void run() {
+        System.out.println("I run at speed " + getMaxSpeedOfAnimal() + " KMPH");
+    }
+}
+_______________________________________________________
+
+inherited class from WildAnimal - Elephant
+
+package polymorphism;
+
+public class Elephant extends WildAnimal{
+    @Override
+    public void eat() {
+        System.out.println("I eat only vegetables and fruits");
+    }
+
+    public static void main(String[] args) {
+        Elephant e = new Elephant();
+        e.setMaxSpeedOfAnimal(5);
+        e.eat();
+        e.run();
+    }
+}
+_______________________________________________________
+
+inherited class from DomesticAnimal - Cat
+
+package polymorphism;
+
+public class Cat extends DomesticAnimal{
+    @Override
+    public void eat() {
+        super.eat();
+        System.out.println("I eat meat as well");
+    }
+
+    public static void main(String[] args) {
+        Cat c = new Cat();
+        c.setMaxSpeedOfAnimal(20);
+        c.run();
+        c.eat();
+    }
+}
+_______________________________________________________
+
+In this example, the cat eats both meat and drinks milk.
+So, we use super.eat() and method overriding.
+in this case, it will run both the methods.
+
+In the case of elephant, even though it is wild animal, it will eat veg stuff
+
+so, we simply override it and not use the original method defined in super class.
+
+We can create another class as Tiger which satisfies both methods defined in super class.
+so, no method overriding is needed.
+
+_______________________________________________________
+
+Compile time Poly: method overloading
+
+We use same class name but with different parameter list.
+
+So, we add parameters while defining the method in sub class.
+When we are calling the method, if we specify arguments, it'll call the method with argument defined at sub class.
+If we call default method, i.e. method with no argument, it'll call the method defined at super class.
+
+_______________________________________________________
+
+Example:
+
+cat class.
+
+package polymorphism;
+
+public class Cat extends DomesticAnimal{
+    @Override
+    public void eat() {
+        super.eat();
+        System.out.println("I eat meat as well");
+    }
+
+    public void run(boolean ifDanger){
+        if (ifDanger){
+            System.out.println("I run at 50 KMPH when in danger");
+        }
+        else {
+            System.out.println("I run at speed " + getMaxSpeedOfAnimal() + " KMPH");
+        }
+    }
+
+    public static void main(String[] args) {
+        Cat c = new Cat();
+        c.setMaxSpeedOfAnimal(20);
+        c.run(true);
+        c.eat();
+    }
+}
+
+_______________________________________________________
+
+
+We are adding ifDanger parameter, while calling, if we specify that, compiler will take that.
+Else, default method defined at super class.
+
+_______________________________________________________
+
+Rules for compile time Poly:
+
+1. Argument list must be changed, not only return type.
+2. Overloaded methods must change argument list
+3. Overloaded methods can change return type.
+4. Overloaded methods can change the access modifier.
+_______________________________________________________

@@ -51,12 +51,12 @@ Variables that are defined inside a class and outside a method, it is called ins
 
 Ex.
 
-Class Employee(){
+Class testExamples.Employee(){
     int age;
 
-    Employee Tejas = new Employee();
+    testExamples.Employee Tejas = new testExamples.Employee();
     void empAge(){
-        SOUT("Employee Age is: " + )
+        SOUT("testExamples.Employee Age is: " + )
     }    
 }
 

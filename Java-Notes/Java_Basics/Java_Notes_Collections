@@ -375,7 +375,7 @@ If we enter String or int value, the compiler checks it with the elements in set
 The compiler has overridden the compare() to do this activity
 
 If we enter user-defined objects like Person, the Dev must decide on what basis the comparison must be done to check if both are equal.
-ex. using name attribute to check, like if there are two Tejas, or employee ID, to check if there are two users with same Employee ID.
+ex. using name attribute to check, like if there are two Tejas, or employee ID, to check if there are two users with same testExamples.Employee ID.
 
 HashSet<Person> mySet = new HashSet();
 mySet.add(new Person("Alex", 22, "male"))

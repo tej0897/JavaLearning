@@ -5,6 +5,7 @@ public class SingletonExample {
         SingletonEager instance = SingletonEager.getInstance();
         System.out.println(instance);
         SingletonEager instance1 = SingletonEager.getInstance();
+        System.out.println(instance);
     }
     // to do
 }

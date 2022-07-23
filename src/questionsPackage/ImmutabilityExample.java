@@ -8,25 +8,26 @@ package questionsPackage;
  */
 
 
-final class Employee{
-    final String panCardNumber;
-
-    public Employee(String panCardNumber){
-        this.panCardNumber = panCardNumber;
-    }
-
-    public String getPanCardNumber() {
-        return panCardNumber;
-    }
-}
 public class ImmutabilityExample {
 
     public static void main(String[] args) {
 
-        Employee e1 = new Employee("AsBC123");
+        Address address = new Address();
 
-        String s1 = e1.getPanCardNumber();
-        System.out.println("PanCard Number is: " + s1);
+        Employee e1 = new Employee("AsBC123", address);
+
+        e1.address.setCountry("India");
+        e1.address.setCity("Bangalore");
+
+        System.out.println(e1);
+
+        address.setCity("test1");
+        address.setCountry("test1");
+
+        e1.getAddress().setCity("Mysore");
+
+        System.out.println(e1);
+
 
     }
 }
